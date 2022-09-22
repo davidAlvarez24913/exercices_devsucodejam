@@ -9,9 +9,6 @@
 #     The function will receive 2 strings and return a string
 # David Avarez C
 
-import string
-
-
 def exercise_4(x, y):
     if isinstance(x, str) and isinstance(y, str):
         letters_a = [_ for _ in x.lower()]
