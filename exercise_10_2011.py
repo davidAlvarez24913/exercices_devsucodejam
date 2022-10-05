@@ -22,5 +22,5 @@ def exercise_10(num_a,num_b):
     list_perfect = list(filter( lambda x: x>0 ,[perfect(_) for _ in list_domain ]))
     return min(list_perfect)
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     print(exercise_10(5,36))
