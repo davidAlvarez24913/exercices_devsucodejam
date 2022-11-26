@@ -39,7 +39,7 @@
 # The function will receive one integer, return another integer.
 # David Alvarez C
 def exercise20(number):
-    aux = [ _ for _ in range(1,number)]
+    aux = [_ for _ in range(1, number)]
     cont = 1
     # def partitons(aux):
     out = []
@@ -47,18 +47,45 @@ def exercise20(number):
         if i != number:
             # a este arreglo debo agrgarle un numero consecutivamente incrementalmente,
             # y probar hasta que su suma sea igual al numero
-            array_aux =[i]
+            array_aux = [i]
 
             while sum(array_aux) != number and sum(array_aux) < number:
-                    array_aux.append(1)
+                array_aux.append(1)
             out.append(array_aux)
-        
-                
-                # while sum(array_aux) != number and sum(array_aux) < number:
-                #     array_aux = [i,i+1]
-                # debe hacerse una funcion recursiva  donde el arreglo que se le pase a esa funcion 
-                # este agregado un nuevo elemento incrementado en uno
+
+            # while sum(array_aux) != number and sum(array_aux) < number:
+            #     array_aux = [i,i+1]
+            # debe hacerse una funcion recursiva  donde el arreglo que se le pase ano esa funcion
+            # este agregado un nuevo elemento incrementado en uno
     return cont
 
+
+def ramanujam(number):
+    count = 0
+    list_solution = [[x for _ in range(1, number+1)]
+                     for x in range(1, number+1)]
+
+    for x in list_solution:
+        if sum(x) > number:
+            while sum(x) > number:
+                x = x[:-1]
+                print(x)
+        if sum(x) < number:
+            while sum(x) < number:
+                x.append(1)
+        print(x)
+
+    count = len(list_solution)
+    return count
+
+
+# def algoritm(my_list):
+#     for x in my_list:
+#         x
+
+#     return ' '
+
+
 if __name__ == '__main__':
-    print(exercise20(8))
+    # print(exercise20(8))
+    print(ramanujam(8))

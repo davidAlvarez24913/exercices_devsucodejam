@@ -7,7 +7,6 @@
 # For example, if the series receives x = 3, y = 4, it should return 72, because 72 is the 4th
 # element of the series generated when x = 3.
 # The function will receive 2 integers, and return an integer
-# David Avarez C
 
 def exercise_2(x, y):
 
@@ -17,16 +16,10 @@ def exercise_2(x, y):
     else:
         out = 0
         serie = [x]
-        if x == 3:
-            for i in range(1, y+1):
-                serie.append(serie[-1] * i)
-            out = serie[-1]
-            return out
-        if x == 2:
-            for i in range(1, y+1):
-                serie.append(serie[-1] * i)
-            out = serie[-1]
-            return out
+        for i in range(1, y+1):
+            serie.append(serie[-1] * i)
+        out = serie[-1]
+        return out
 
 
 if __name__ == '__main__':
