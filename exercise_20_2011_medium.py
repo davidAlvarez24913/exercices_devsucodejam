@@ -27,7 +27,7 @@
 # 15. 3 + 2 + 2 + 1 --->
 # 16. 3 + 2 + 1 + 1 + 1
 # 17. 3 + 1 + 1 + 1 + 1 + 1
-# 18. 2 + 2 + 2 + 2 --->
+# 18. 2 + 2 + 2 + 2
 # 19. 2 + 2 + 2 + 1 + 1 --->
 # 20. 2 + 2 + 1 + 1 + 1 + 1
 # 21. 2 + 1 + 1 + 1 + 1 + 1 + 1
@@ -46,14 +46,17 @@ def ramanujam(number):
     aux_a = []
     aux_b = []
     for x in list_solution:
+        # When array all are ones
         if x[0] == 1:
             aux_a.append(x)
 
+        # if the sum of array is greater thant number, reshape list
         if sum(x) > number:
             while sum(x) > number:
                 x = x[:-1]
             aux_a.append(x)
 
+        # if the sum of array is less than number, append incremental number that init in one
         if sum(x) < number:
             for d in range(1, number+1):
                 while sum(x) < number:
@@ -77,16 +80,16 @@ def ramanujam(number):
             # en el anterior ya se agregaron nuevas combinaciones asi que se vuelve a verificar que no sea una combinacion repetiva
             if flag_2:
                 aux.append(lista_aux)
-    result2 = result + aux
-    # print('result2 ==>')
-    # print(result2)
 
-    # return result2
+    # result2 = result + aux
+    result2 = tuple(tuple(x) for x in result) + tuple(tuple(x) for x in aux)
+
     count = len(result2)
     return (count, result2)
 
 
 def combination(lista):
+    lista = list(lista)
     out = []
     if len(lista)-1 > 1:
         while len(lista)-1 > 1:
@@ -109,21 +112,19 @@ def descomposition(lista):
             lista_aux = list(lista_aux_2)
             lista_1.append(lista_aux)
 
-        # print(lista_aux)
     lista_2 = []
     for lta in lista_1:
         aux = [lista[0]]
         for l in lta:
             aux.append(l)
-        # print(aux)
         lista_2.append(tuple(aux))
-        # lista_2.append(sorted(aux))
 
     return lista_2
 
 
 def solution(number):
     lista_principal = ramanujam(number)[1]
+
     sol = []
     for r in lista_principal:
         aux_2 = combination(r)
@@ -148,8 +149,6 @@ def solution(number):
     list_filtered_1 = list(filter(lambda y: len(y) == 2, lista_principal))
     l_f_1 = list(map(lambda x: sorted(x), list_filtered_1))
 
-    # print(out)
-    # print('@@')
     aux_sol = []
     for element in l_f_1:
         aux = descomposition(element)
@@ -175,10 +174,7 @@ def solution(number):
 
 
 if __name__ == '__main__':
-    for x in ramanujam(8)[1]:
-        print(x)
-    print('--------------rmjn')
-
-    print(solution(8))
+    number_test = 8
+    print(solution(number_test))
     # print(descomposition([5, 4]))
-# falta abordar mas casos revisar porque no se agrega [2,2,2,2]
+    # falta abordar mas casos revisar porque no se agrega [2,2,2,2]
