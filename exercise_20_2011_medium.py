@@ -22,7 +22,7 @@
 # 10. 4 + 2 + 2
 # 11. 4 + 2 + 1 + 1
 # 12. 4 + 1 + 1 + 1 + 1
-# 13. 3 + 3 + 2 --->
+# 13. 3 + 3 + 2
 # 14. 3 + 3 + 1 + 1
 # 15. 3 + 2 + 2 + 1 --->
 # 16. 3 + 2 + 1 + 1 + 1
@@ -56,13 +56,12 @@ def ramanujam(number):
                 x = x[:-1]
             aux_a.append(x)
 
-        # if the sum of array is less than number, append incremental number that init in one
+        # if the sum of array is less than number, append the diferen between number and sum of elements x
         if sum(x) < number:
-            for d in range(1, number+1):
-                while sum(x) < number:
-                    x.append(d)
-                if x not in aux_a:
-                    aux_b.append(x)
+            magic_number = number - sum(x)
+            x.append(magic_number)
+            if x not in aux_a:
+                aux_b.append(x)
 
     result = aux_a + aux_b
     # print('result ==>')
@@ -91,6 +90,9 @@ def ramanujam(number):
 def combination(lista):
     lista = list(lista)
     out = []
+    # si la longitud del arreglo es mayor a 1, toma el ultimo elmento y lo suma al primer elemento
+    # obteniendo una nueva combinacion, se agrega el nuevo elemento a un arreglo auxiliar out, y
+    # finalmente se redimensiona la lista
     if len(lista)-1 > 1:
         while len(lista)-1 > 1:
             lista[0] = lista[0] + lista[-1]
@@ -101,25 +103,41 @@ def combination(lista):
 
 
 def descomposition(lista):
+    longitud_lista = len(lista)
+    first_elements = lista[:longitud_lista-1]
     lista_1 = []
-    if len(lista) == 2 and lista[-1] > 1:
-        number_to_descomp = lista[-1]
-        lista_aux_2 = [number_to_descomp]
-        while lista_aux_2[-1] > 1:
+    aux_list = [-x for x in range(1, longitud_lista)]
 
-            lista_aux_2.insert(0, 1)
-            lista_aux_2[-1] = lista_aux_2[-1]-1
-            lista_aux = list(lista_aux_2)
-            lista_1.append(lista_aux)
+    lista_3 = []
+    for d in aux_list:
+        if len(lista) >= 2 and lista[-1] > 1:
+            # number_to_descomp = lista[-1]
+            number_to_descomp = lista[d]
 
-    lista_2 = []
-    for lta in lista_1:
-        aux = [lista[0]]
-        for l in lta:
-            aux.append(l)
-        lista_2.append(tuple(aux))
+            lista_aux_2 = [number_to_descomp]
+            while lista_aux_2[-1] > 1:
 
-    return lista_2
+                lista_aux_2.insert(0, 1)
+                lista_aux_2[-1] = lista_aux_2[-1]-1
+                lista_aux = list(lista_aux_2)
+                lista_1.append(lista_aux)
+        # print(lista_1)
+
+        lista_2 = []
+        for lta in lista_1:
+            # aux = [lista[0]]
+            aux = list(first_elements)
+            for l in lta:
+                aux.append(l)
+            lista_2.append(tuple(aux))
+
+        # mientras todos los elementos menos el primero sean 1
+        lista_2 = [list(_) for _ in lista_2]
+        for z in lista_2:
+            if z not in lista_3:
+                lista_3.append(z)
+
+    return lista_3
 
 
 def solution(number):
@@ -146,7 +164,9 @@ def solution(number):
             out.append(x)
 
     # Filtered tuples by lenght is equal 2
-    list_filtered_1 = list(filter(lambda y: len(y) == 2, lista_principal))
+    # list_filtered_1 = list(filter(lambda y: len(y) == 2, lista_principal))
+    list_filtered_1 = list(filter(lambda y: len(y) >= 2, lista_principal))
+
     l_f_1 = list(map(lambda x: sorted(x), list_filtered_1))
 
     aux_sol = []
@@ -174,7 +194,12 @@ def solution(number):
 
 
 if __name__ == '__main__':
-    number_test = 8
+    number_test = 6
     print(solution(number_test))
     # print(descomposition([5, 4]))
     # falta abordar mas casos revisar porque no se agrega [2,2,2,2]
+    # reordenar en caso exista un arreglo '[2 + 2 + 2 + 1 + 1]', ubicar el mayor al final
+    # si es el mismo numero contar cuantas veces se repite, y hacer descomposicion a cada elemento
+    # agregar en el mismo arreglo
+    # print(ramanujam(number_test))
+    # print(descomposition([3, 2, 3]))
